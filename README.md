@@ -13,7 +13,7 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
 - [Sources](#sources)
 
 ## Background
-Use the following instructions to configure an active-standby setup for HAProxy using keepalived. While these instructions are written for Ubuntu 16.04, they can be adapted for other Linux distros if needed.
+These instructions and notes are useful for setting up an active-standby configuration for HAProxy using keepalived. While these instructions are written for Ubuntu 16.04, they can be adapted for other Linux distros if needed.
 
 ## Basic Server Information
 You'll need a minimum of two servers for keepalived to work. One server should be designated MASTER, the other BACKUP.
@@ -90,14 +90,7 @@ sudo service keepalived status
 - https://www.digitalocean.com/community/questions/keepalived-for-ubuntu-16
 - https://gist.github.com/JamieCressey/f5e011cb838b9d867834
 
-
-Internal Resolution
-For internal resolution, create CNAME records pointing to the HAProxy VIP (192.168.1.99)
-
-Configure SMTP Relay for internal apps
+## Extras
+Configure G-Suite SMTP relay for keepalived
 https://support.google.com/a/answer/2956491
 Use stmp-relay.gmail.com for email server
-
-Setup a VIP (192.168.1.99) and reservation
-setup HAProxy1 (10.10.10.11) and reservation with MAC
-setup HAProxy2 (10.10.10.12) and reservation with MAC
