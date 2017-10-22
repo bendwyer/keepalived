@@ -126,6 +126,8 @@ sudo vi /etc/keepalived/keepalived.conf
 ## Start keepalived automatically
 Many of the insructions for setting up **keepalived** on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. None of them work with 16.04, but the init script below does.
 
+**Perform the following steps on both servers.**
+
 1. Download the `keepalived` file from the repo to the location below.<br>
 
 ```
