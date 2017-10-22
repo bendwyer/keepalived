@@ -1,5 +1,5 @@
 # keepalived
-Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
+Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 
 ## Table of Contents
 - [Background](#background)
@@ -13,29 +13,32 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
 - [Sources](#sources)
 
 ## Background
-These instructions and notes are useful for setting up an active-standby configuration for HAProxy using keepalived. While these instructions are written for Ubuntu 16.04, they can be adapted for other Linux distros if needed.
+keepalived is useful for setting up active-standby failover for services. When an outage is detected with the monitored service on the MASTER server, keepalived starts that service up on the BACKUP server. All communication between the MASTER and BACKUP servers takes place over a virtual IP (VIP). In this setup, keepalived monitors the status of HAProxy, a load balancer and reverse proxy service.
 
 ## Basic Server Information
-You'll need a minimum of two servers for keepalived to work. One server should be designated MASTER, the other BACKUP.
+A minimum of two servers is necessary for keepalived to work. One server should be designated MASTER, the other BACKUP. Communication between servers requires a shared virtual IP (VIP).
 
 haproxy01.domain.com - 10.10.10.11 (MASTER)
 haproxy02.domain.com - 10.10.10.12 (BACKUP)
+Shared Virtual IP - 10.10.10.99 (VIP)
 
 ## Setup IP binding on each server
-keepalived needs a shared virtual IP (VIP) in order for communication between the two instances to be possible. First, you'll need to enable the ability to bind IPs not defined in the interfaces file.
+keepalived uses a shared virtual IP (VIP) to communicate service status between servers. For Ubuntu, the ability to bind IPs not defined in the interfaces file needs to be enabled.
 
-- Open the sysctl.conf file
+- Perform the following steps on both servers.
+
+1. Open the sysctl.conf file
 `sudo vi /etc/sysctl.conf`
-- Add the following line at the end of the file
+2. Add the following line at the end of the file
 `net.ipv4.ip_nonlocal_bind = 1`
-- Make the new setting take effect
+3. Make the new setting take effect
 `sudo sysctl -p`
-- Perform these steps on both servers
 
 ## Install HAProxy
-Use the following site to determine the installation steps specific to your Linux distro: https://haproxy.debian.net/
+The HAProxy version available from the Ubuntu repos is always out of date. Instead, the latest stable version of HAProxy can be obtained from a custom repo. The following site is useful for determining specfic installation steps for Debian distros: https://haproxy.debian.net/
 
-- Generally, the latest version is prefereable to the stable version that ships with Ubuntu.
+The installation steps specific to Ubuntu 16.04 are included below. 
+
 - Add the repo and dependencies
 ```
 sudo apt install software-properties-common
@@ -48,10 +51,11 @@ sudo apt install haproxy
 ```
 
 ## Configure HAProxy
-Setup your HAProxy configuration on MASTER, and copy that configuration over to BACKUP. The HAProxy configuration file needs to be the same on both servers.
+- HAProxy configuration is outside the scope of these instructions.
+- Configure HAProxy on MASTER, and copy that configuration over to BACKUP. The HAProxy configuration file should be the same on both servers.
 
 ## Install keepalived
-You could use `sudo apt install keepalived`, but the default version from Ubuntu's repos is outdated and posesses a few bugs. Instead, you'll need to build and install keepalived from the source files.
+The keepalived version available from the Ubuntu repos is always out of date, and has some significant bugs. Instead, the latest stable version of keepalived can be obtained by building the installation package from source files. 
 
 - Perform the following steps on both servers.
 
