@@ -6,7 +6,7 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
 - [Basic Server Information](#basic-server-information)
 - [Setup IP binding on each server](#setup-ip-binding-on-each-server)
 - [Install HAProxy](#install-haproxy)
-- [HAProxy Configuration](#haproxy-configuration)
+- [Configure HAProxy](#configure-haproxy)
 - [Install keepalived](#install-keepalived)
 - [Start keepalived automatically](#start-keepalived-automatically)
 - [Configure keepalived](#configure-keepalived)
@@ -46,7 +46,7 @@ sudo apt update
 sudo apt install haproxy
 ```
 
-## HAProxy Configuration
+## Configure HAProxy
 Setup your HAProxy configuration on MASTER, and copy that configuration over to BACKUP. The HAProxy configuration file needs to be the same on both servers.
 
 ## Install keepalived
