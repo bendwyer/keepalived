@@ -61,7 +61,7 @@ The **keepalived** version available from the Ubuntu repos is always out of date
 `sudo apt install build-essential libssl-dev`
 3. Change directories to `home`.<br>
 `cd ~`
-4. Go to http://www.keepalived.org/download.html and copy the link to the latest keepalived tarball. Use wget to download the file.<br>
+4. Go to http://www.keepalived.org/download.html and copy the link to the latest keepalived tarball. Use `wget` to download the file.<br>
 `wget http://www.keepalived.org/software/keepalived-1.3.9.tar.gz`
 5. Expand the keepalived tarball.<br>
 `sudo tar xzvf keepalived*`
@@ -83,13 +83,13 @@ The config files for **keepalived** **MASTER** and **BACKUP** servers are includ
 - `router_id` - designation for **keepalived** instance
 - `enable_script_security` - prevents running scripts configured to run as root if any part of the path is writable by a non-root user
 - `vrrp_script chk_haproxy` - script that checks status of **HAProxy** every 2 seconds
-- `interface` - name of interface, use `ifconfig` to determine active adapter name
+- `interface` - name of interface keepalived will communicate on, use `ifconfig` to determine active adapter name
 - `auth_type AH` - sets the authentication type for communication between servers to IPSEC-Authentication Header (AH), which is safer than the alternative plain-text (PASS)
 - `auth_pass` - password for connunication between servers, only the first eight (8) characters are used
 - `virtual_ip_address` - shared **VIP** for both servers
 - `track_script` - which script **keepalived** monitors to decide if failover is necessary
 
-- Create a **keepalived** config file for the **MASTER** server.<br>
+Create a **keepalived** config file for the **MASTER** server.<br>
 `sudo vi /etc/keepalived/keepalived.conf`
 
 ```
@@ -127,7 +127,7 @@ vrrp_instance haproxy {
 }
 ```
 
-- Create a **keepalived** config file for the **BACKUP** server.<br>
+Create a **keepalived** config file for the **BACKUP** server.<br>
 `sudo vi /etc/keepalived/keepalived.conf`
 
 ```
