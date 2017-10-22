@@ -1,11 +1,11 @@
 global_defs {
   notification_email {
-    email@domain.com
+    <email@domain.com>
   }
-  notification_email_from haproxy02@domain.com
-  smtp_server smtp.domain.com
+  notification_email_from <haproxy02@domain.com>
+  smtp_server <smtp.domain.com>
   smtp_connect_timeout 30
-  router_id haproxy02
+  router_id <haproxy02>
   enable_script_security
 }
 vrrp_script chk_haproxy {
@@ -15,16 +15,16 @@ vrrp_script chk_haproxy {
 }
 vrrp_instance haproxy {
   state BACKUP
-  interface ens160
+  interface <ens160>
   priority 100
   virtual_router_id 51
   smtp_alert
   authentication {
     auth_type AH
-    auth_pass 12345678
+    auth_pass <12345678>
   }
   virtual_ipaddress {
-    10.10.10.99
+    <10.10.10.99>
   }
   track_script {
     chk_haproxy
