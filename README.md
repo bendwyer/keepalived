@@ -23,28 +23,30 @@ haproxy02.domain.com - **10.10.10.12** (**BACKUP**)<br>
 Shared Virtual IP - **10.10.10.99** (**VIP**)<br>
 
 ## Setup IP binding on each server
-keepalived uses a shared virtual IP (VIP) to communicate service status between servers. For Ubuntu, the ability to bind IPs not defined in the interfaces file needs to be enabled.
+**keepalived** uses a **VIP** to communicate service status between servers. For Ubuntu, the ability to bind IPs not defined in the interfaces file needs to be enabled.
 
 - Perform the following steps on both servers.
 
-1. Open the sysctl.conf file
+1. Open the sysctl.conf file.<br>
 `sudo vi /etc/sysctl.conf`
-2. Add the following line at the end of the file
+2. Add the following line at the end of the file.<br>
 `net.ipv4.ip_nonlocal_bind = 1`
-3. Make the new setting take effect
+3. Make the new setting take effect.<br>
 `sudo sysctl -p`
 
 ## Install HAProxy
-The HAProxy version available from the Ubuntu repos is always out of date. Instead, the latest stable version of HAProxy can be obtained from a custom repo. The following site is useful for determining specfic installation steps for Debian distros: https://haproxy.debian.net/
+The **HAProxy** version available from the Ubuntu repos is always out of date. Instead, the latest stable version of **HAProxy** can be obtained from a custom repo. The following site is useful for determining specfic installation steps for Debian distros: https://haproxy.debian.net/
 
-The installation steps specific to Ubuntu 16.04 are included below. 
+The installation steps specific to Ubuntu 16.04 are included below.
 
-- Add the repo and dependencies
+- Perform the following steps on both servers.
+
+1. Add the repo and dependencies
 ```
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:vbernat/haproxy-1.7
 ```
-- Download and install haproxy
+2. Download and install haproxy
 ```
 sudo apt update
 sudo apt install haproxy
