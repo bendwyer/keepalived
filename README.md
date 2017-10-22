@@ -94,7 +94,7 @@ sudo make install
 
 The config files for **keepalived** **MASTER** and **BACKUP** servers are available as downloadable files in this git repo.
 
-1. Download the **keepalived** config file to the **MASTER** server and rename it.
+1. Download `keepalived.conf.master` to the **MASTER** server and rename it to `keepalived.conf`.
 
 ```
 cd /etc/keepalived
@@ -102,14 +102,14 @@ wget https://
 sudo mv keepalived.conf.master keepalived.conf
 ```
 
-2. Edit the **MASTER** `.conf` file. Items in `< >` need to be changed, and the `< >` should be removed.
+2. Edit the **MASTER** `keepalived.conf` file. Items in `< >` need to be changed, and all `< >` should be removed.
 
 ```
 sudo vi /etc/keepalived/keepalived.conf
 ```
 
 
-3. Download the **keepalived** config file to the **BACKUP** server and rename it.
+3. Download `keepalived.conf.backup` to the **BACKUP** server and rename it to `keepalived.conf`.
 
 ```
 cd /etc/keepalived
@@ -117,7 +117,7 @@ wget https://
 sudo mv keepalived.conf.backup keepalived.conf
 ```
 
-4. Edit the **BACKUP** `.conf` file. Items in `< >` need to be changed, and the `< >` should be removed.
+4. Edit the **BACKUP** `keepalived.conf` file. Items in `< >` need to be changed, and all `< >` should be removed.
 
 ```
 sudo vi /etc/keepalived/keepalived.conf
