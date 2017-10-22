@@ -13,14 +13,14 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 - [Sources](#sources)
 
 ## Background
-keepalived is useful for setting up active-standby failover for services. When an outage is detected with the monitored service on the MASTER server, keepalived starts that service up on the BACKUP server. All communication between the MASTER and BACKUP servers takes place over a virtual IP (VIP). In this setup, keepalived monitors the status of HAProxy, a load balancer and reverse proxy service.
+**keepalived** is useful for setting up active-standby failover for services. When an outage is detected with the monitored service on the **MASTER** server, **keepalived** starts that service up on the **BACKUP** server. All communication between the **MASTER** and **BACKUP** servers takes place over a virtual IP (**VIP**). In this setup, **keepalived** monitors the status of **HAProxy**, a load balancer and reverse proxy service.
 
 ## Basic Server Information
-A minimum of two servers is necessary for keepalived to work. One server should be designated MASTER, the other BACKUP. Communication between servers requires a shared virtual IP (VIP).
+A minimum of two servers is necessary for keepalived to work. One server should be designated **MASTER**, the other **BACKUP**. Communication between servers requires a **VIP**.
 
-haproxy01.domain.com - 10.10.10.11 (MASTER)
-haproxy02.domain.com - 10.10.10.12 (BACKUP)
-Shared Virtual IP - 10.10.10.99 (VIP)
+haproxy01.domain.com - **10.10.10.11** (**MASTER**)<br>
+haproxy02.domain.com - **10.10.10.12** (**BACKUP**)<br>
+Shared Virtual IP - **10.10.10.99** (**VIP**)<br>
 
 ## Setup IP binding on each server
 keepalived uses a shared virtual IP (VIP) to communicate service status between servers. For Ubuntu, the ability to bind IPs not defined in the interfaces file needs to be enabled.
