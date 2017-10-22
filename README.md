@@ -25,7 +25,7 @@ Shared Virtual IP - **10.10.10.99** (**VIP**)<br>
 ## Setup IP binding on each server
 **keepalived** uses a **VIP** to communicate service status between servers. For Ubuntu, the ability to bind IPs not defined in the interfaces file needs to be enabled.
 
-- Perform the following steps on both servers.
+- **Perform the following steps on both servers.**
 
 1. Open the sysctl.conf file.<br>
 `sudo vi /etc/sysctl.conf`
@@ -39,14 +39,12 @@ The **HAProxy** version available from the Ubuntu repos is always out of date. I
 
 The installation steps specific to Ubuntu 16.04 are included below.
 
-- Perform the following steps on both servers.
+- **Perform the following steps on both servers.**
 
-1. Add the repo and dependencies
-```
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:vbernat/haproxy-1.7
-```
-2. Download and install haproxy
+1. Add the repo and dependencies.<br>
+`sudo apt install software-properties-common`<br>
+`sudo add-apt-repository ppa:vbernat/haproxy-1.7`<br>
+2. Download and install **HAProxy**.
 ```
 sudo apt update
 sudo apt install haproxy
@@ -59,7 +57,7 @@ sudo apt install haproxy
 ## Install keepalived
 The keepalived version available from the Ubuntu repos is always out of date, and has some significant bugs. Instead, the latest stable version of keepalived can be obtained by building the installation package from source files. 
 
-- Perform the following steps on both servers.
+- **Perform the following steps on both servers.**
 
 1. `sudo apt update`
 2. `sudo apt install build-essential libssl-dev`
