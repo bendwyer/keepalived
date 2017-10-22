@@ -5,7 +5,7 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 - [Background](#background)
 - [Basic Server Information](#basic-server-information)
 - [Setup IP binding on each server](#setup-ip-binding-on-each-server)
-- [Install HAProxy](#install-haproxy)
+- [Install and configure HAProxy](#install-and-configure-haproxy)
 - [Configure HAProxy](#configure-haproxy)
 - [Install keepalived](#install-keepalived)
 - [Configure keepalived](#configure-keepalived)
@@ -34,25 +34,24 @@ Shared Virtual IP - **10.10.10.99** (**VIP**)<br>
 3. Make the new setting take effect.<br>
 `sudo sysctl -p`
 
-## Install HAProxy
+## Install and configure HAProxy
 The **HAProxy** version available from the Ubuntu repos is always out of date. Instead, the latest stable version of **HAProxy** can be obtained from a custom repo. The following site is useful for determining specfic installation steps for Debian distros: https://haproxy.debian.net/
 
 The installation steps specific to Ubuntu 16.04 are included below.
 
 - **Perform the following steps on both servers.**
 
-1. Add the repo and dependencies.<br>
-`sudo apt install software-properties-common`<br>
-`sudo add-apt-repository ppa:vbernat/haproxy-1.7`<br>
+1. Add the repo and dependencies.
+```
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-1.7
+```
 2. Download and install **HAProxy**.
 ```
 sudo apt update
 sudo apt install haproxy
 ```
-
-## Configure HAProxy
-- HAProxy configuration is outside the scope of these instructions.
-- Configure HAProxy on MASTER, and copy that configuration over to BACKUP. The HAProxy configuration file should be the same on both servers.
+3. Edit the **HAProxy** configuration on **MASTER**, and copy that configuration over to **BACKUP**. The configuration file should be the same on both servers.
 
 ## Install keepalived
 The keepalived version available from the Ubuntu repos is always out of date, and has some significant bugs. Instead, the latest stable version of keepalived can be obtained by building the installation package from source files. 
