@@ -8,7 +8,7 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 - [Install and configure **HAProxy**](#install-and-configure-haproxy)
 - [Install **keepalived**](#install-keepalived)
 - [**keepalived** settings explained](#keepalived-settings-explained)
-- [Download and edit the `keepalived.conf` files](#download-and-edit-the-keepalived.conf-files)
+- [Download and edit the `keepalived.conf` files](#download-and-edit-the-keepalived_conf-files)
 - [Start **keepalived** automatically](#start-keepalived-automatically)
 - [Sources](#sources)
 - [Extras](#extras)
@@ -35,7 +35,7 @@ Shared Virtual IP - **10.10.10.99** (**VIP**)<br>
 3. Make the new setting take effect.<br>
 `sudo sysctl -p`
 
-## Install and configure **HAProxy**
+## Install and configure HAProxy
 The **HAProxy** version available from the Ubuntu repos is always out of date. Instead, the latest stable version of **HAProxy** can be obtained from a custom repo. The following site is useful for determining specfic installation steps for Debian distros: https://haproxy.debian.net/. The installation steps specific to Ubuntu 16.04 are included below.
 
 **Perform the following steps on both servers.**
@@ -52,7 +52,7 @@ sudo apt install haproxy
 ```
 3. Make any necessary edits to the **HAProxy** configuration on **MASTER**, and copy that configuration over to **BACKUP**. The configuration file should be the same on both servers.
 
-## Install **keepalived**
+## Install keepalived
 The **keepalived** version available from the Ubuntu repos is always out of date, and has some significant bugs. Instead, the latest stable version of **keepalived** can be obtained by building the installation package from source files. 
 
 **Perform the following steps on both servers.**
@@ -76,7 +76,7 @@ sudo make
 sudo make install
 ```
 
-## **keepalived** settings explained
+## keepalived settings explained
 
 - `notification_email` - address the alerts will be sent to
 - `notification_email_from` - address the alerts will be sent from
@@ -123,7 +123,7 @@ sudo mv keepalived.conf.backup keepalived.conf
 sudo vi /etc/keepalived/keepalived.conf
 ```
 
-## Start **keepalived** automatically
+## Start keepalived automatically
 Many of the insructions for setting up **keepalived** on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. None of them work with 16.04, but the init script below does.
 
 1. Download the `keepalived` file from the repo to the location below.<br>
