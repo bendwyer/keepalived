@@ -10,9 +10,10 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 - [Configure keepalived](#configure-keepalived)
 - [Start keepalived automatically](#start-keepalived-automatically)
 - [Sources](#sources)
+- [Extras](#extras)
 
 ## Background
-**keepalived** is useful for setting up active-standby failover for services. When an outage is detected with the monitored service on the **MASTER** server, **keepalived** starts that service up on the **BACKUP** server. Both the **MASTER** and **BACKUP** servers share a virtual IP (**VIP**) which allows only one server to be active at a time. In this setup, **keepalived** monitors the status of **HAProxy**, a load balancer and reverse proxy service.
+**keepalived** is useful for setting up active-standby failover for services. When a service outage is detected on the **MASTER** server, **keepalived** starts that service up on the **BACKUP** server, and shifts a shared virtual IP (**VIP**) over so that name resolution continues to function properly. In this setup, **keepalived** monitors the status of **HAProxy**, a load balancer and reverse proxy service.
 
 ## Basic Server Information
 A minimum of two servers is necessary for keepalived to work. One server should be designated **MASTER**, the other **BACKUP**. Both servers share a **VIP**.
