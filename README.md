@@ -8,8 +8,9 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
 - [Install HAProxy](#install-haproxy)
 - [Configure HAProxy](#configure-haproxy)
 - [Install keepalived](#install-keepalived)
-- [Start keepalived automatically](#start-keepalived-automatically)
 - [Configure keepalived](#configure-keepalived)
+- [Start keepalived automatically](#start-keepalived-automatically)
+- [Sources](#sources)
 
 ## Background
 Use the following instructions to configure an active-standby setup for HAProxy using keepalived. While these instructions are written for Ubuntu 16.04, they can be adapted for other Linux distros if needed.
@@ -63,6 +64,13 @@ You could use `sudo apt install keepalived`, but the default version from Ubuntu
 7. `sudo make`
 8. `sudo make install`
 
+## Configure keepalived
+- Create a keepalived config file for the MASTER server
+`sudo vi /etc/keepalived/keepalived.conf`
+
+Some notes on things to change
+ipsec_ah
+
 ## Start keepalived automatically
 A lot of the insructions for setting up keepalived on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. I didn't have much luck attempting to use them, but this init script did the trick.
 
@@ -75,13 +83,6 @@ sudo update-rc.d keepalived defaults
 `Might need to run again`
 sudo /etc/init.d/keepalived start
 sudo service keepalived status
-
-## Configure keepalived
-- Create a keepalived config file for the MASTER server
-`sudo vi /etc/keepalived/keepalived.conf`
-
-Some notes on things to change
-ipsec_ah
 
 ## Sources:
 - https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-haproxy-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04
