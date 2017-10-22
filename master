@@ -1,0 +1,32 @@
+global_defs {
+  notification_email {
+    email@domain.com
+  }
+  notification_email_from haproxy01@domain.com
+  smtp_server smtp.domain.com
+  smtp_connect_timeout 30
+  router_id haproxy01
+  enable_script_security
+}
+vrrp_script chk_haproxy {
+  script "/usr/bin/killall -0 haproxy"
+  interval 2
+  weight 2
+}
+vrrp_instance haproxy {
+  state MASTER
+  interface ens160
+  priority 101
+  virtual_router_id 51
+  smtp_alert
+  authentication {
+    auth_type AH
+    auth_pass 12345678
+  }
+  virtual_ipaddress {
+    10.10.10.99
+  }
+  track_script {
+    chk_haproxy
+  }
+}
