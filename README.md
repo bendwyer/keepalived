@@ -8,7 +8,7 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 - [Install and configure **HAProxy**](#install-and-configure-haproxy)
 - [Install **keepalived**](#install-keepalived)
 - [**keepalived** settings explained](#keepalived-settings-explained)
-- [Download and edit the `keepalived.conf` files](#download-and-edit-the-keepalived_conf-files)
+- [Download and edit the `keepalived.conf` files](#download-and-edit-the-keepalivedconf-files)
 - [Start **keepalived** automatically](#start-keepalived-automatically)
 - [Sources](#sources)
 - [Extras](#extras)
