@@ -3,19 +3,20 @@ Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04.
 
 ## Table of Contents
 - [Background](#background)
-- [Basic Server Information](#basic-server-information)
+- [Basic server information](#basic-server-information)
 - [Setup IP binding on each server](#setup-ip-binding-on-each-server)
-- [Install and configure HAProxy](#install-and-configure-haproxy)
-- [Install keepalived](#install-keepalived)
-- [Configure keepalived](#configure-keepalived)
-- [Start keepalived automatically](#start-keepalived-automatically)
+- [Install and configure **HAProxy**](#install-and-configure-haproxy)
+- [Install **keepalived**](#install-keepalived)
+- [**keepalived** settings explained](#keepalived-settings-explained)
+- [Download and edit the `keepalived.conf` files](#download-and-edit-the-keepalived.conf-files)
+- [Start **keepalived** automatically](#start-keepalived-automatically)
 - [Sources](#sources)
 - [Extras](#extras)
 
 ## Background
 **keepalived** is useful for setting up active-standby failover for services. When a service outage is detected on the **MASTER** server, **keepalived** starts that service up on the **BACKUP** server, and shifts a shared virtual IP (**VIP**) over so that name resolution continues to function properly. In this setup, **keepalived** monitors the status of **HAProxy**, a load balancer and reverse proxy service.
 
-## Basic Server Information
+## Basic server information
 A minimum of two servers is necessary for keepalived to work. One server should be designated **MASTER**, the other **BACKUP**. Both servers share a **VIP**.
 
 haproxy01.domain.com - **10.10.10.11** (**MASTER**)<br>
@@ -34,7 +35,7 @@ Shared Virtual IP - **10.10.10.99** (**VIP**)<br>
 3. Make the new setting take effect.<br>
 `sudo sysctl -p`
 
-## Install and configure HAProxy
+## Install and configure **HAProxy**
 The **HAProxy** version available from the Ubuntu repos is always out of date. Instead, the latest stable version of **HAProxy** can be obtained from a custom repo. The following site is useful for determining specfic installation steps for Debian distros: https://haproxy.debian.net/. The installation steps specific to Ubuntu 16.04 are included below.
 
 **Perform the following steps on both servers.**
@@ -51,7 +52,7 @@ sudo apt install haproxy
 ```
 3. Make any necessary edits to the **HAProxy** configuration on **MASTER**, and copy that configuration over to **BACKUP**. The configuration file should be the same on both servers.
 
-## Install keepalived
+## Install **keepalived**
 The **keepalived** version available from the Ubuntu repos is always out of date, and has some significant bugs. Instead, the latest stable version of **keepalived** can be obtained by building the installation package from source files. 
 
 **Perform the following steps on both servers.**
@@ -75,8 +76,7 @@ sudo make
 sudo make install
 ```
 
-## Configure keepalived
-These are some of the options available in the config file, with brief explanations.
+## **keepalived** settings explained
 
 - `notification_email` - address the alerts will be sent to
 - `notification_email_from` - address the alerts will be sent from
@@ -90,6 +90,8 @@ These are some of the options available in the config file, with brief explanati
 - `virtual_ip_address` - shared **VIP** for both servers
 - `track_script` - which script **keepalived** monitors to decide if failover is necessary
 
+## Download and edit the `keepalived.conf` files
+
 The config files for **keepalived** **MASTER** and **BACKUP** servers are available as downloadable files in this git repo.
 
 1. Download the **keepalived** config file to the **MASTER** server and rename it.
@@ -100,7 +102,7 @@ wget https://
 sudo mv keepalived.conf.master keepalived.conf
 ```
 
-2. Edit the **MASTER** `.conf` file. Items in `< >` need to be edited, and the `< >` should be removed.
+2. Edit the **MASTER** `.conf` file. Items in `< >` need to be changed, and the `< >` should be removed.
 
 ```
 sudo vi /etc/keepalived/keepalived.conf
@@ -108,7 +110,6 @@ sudo vi /etc/keepalived/keepalived.conf
 
 
 3. Download the **keepalived** config file to the **BACKUP** server and rename it.
-`sudo vi /etc/keepalived/keepalived.conf`
 
 ```
 cd /etc/keepalived
@@ -116,13 +117,13 @@ wget https://
 sudo mv keepalived.conf.backup keepalived.conf
 ```
 
-4. Edit the **BACKUP** `.conf` file. Items in `< >` need to be edited, and the `< >` should be removed.
+4. Edit the **BACKUP** `.conf` file. Items in `< >` need to be changed, and the `< >` should be removed.
 
 ```
 sudo vi /etc/keepalived/keepalived.conf
 ```
 
-## Start keepalived automatically
+## Start **keepalived** automatically
 Many of the insructions for setting up **keepalived** on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. None of them work with 16.04, but the init script below does.
 
 1. Download the `keepalived` file from the repo to the location below.<br>
