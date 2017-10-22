@@ -169,8 +169,14 @@ vrrp_instance haproxy {
 Many of the insructions for setting up **keepalived** on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. None of them work with 16.04, but the init script below does.
 
 1. Download the `keepalived` file from the repo to the location below.<br>
-`/etc/init.d/`
+
+```
+cd /etc/init.d
+wget https://raw.githubusercontent.com/bendwyer/keepalived/master/keepalived
+```
+
 2. Execute the following commands.
+
 ```
 sudo chmod +x /etc/init.d/keepalived
 sudo /etc/init.d/keepalived start
@@ -184,6 +190,6 @@ sudo update-rc.d keepalived defaults
 - https://gist.github.com/JamieCressey/f5e011cb838b9d867834
 
 ## Extras
-Configure G-Suite SMTP relay for keepalived
-https://support.google.com/a/answer/2956491
-Use stmp-relay.gmail.com for email server
+G Suite can function as an SMTP relay, which is useful for keepalived (and other services that can send email alerts). Use `stmp-relay.gmail.com` as the server address.
+
+Source: https://support.google.com/a/answer/2956491
