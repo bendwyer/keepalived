@@ -98,7 +98,7 @@ The config files for **keepalived** **MASTER** and **BACKUP** servers are availa
 
 ```
 cd /etc/keepalived
-wget https://
+wget https://raw.githubusercontent.com/bendwyer/keepalived/master/keepalived.conf.master
 sudo mv keepalived.conf.master keepalived.conf
 ```
 
@@ -113,7 +113,7 @@ sudo vi /etc/keepalived/keepalived.conf
 
 ```
 cd /etc/keepalived
-wget https://
+wget https://raw.githubusercontent.com/bendwyer/keepalived/master/keepalived.conf.backup
 sudo mv keepalived.conf.backup keepalived.conf
 ```
 
