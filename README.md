@@ -1,7 +1,17 @@
 # keepalived
 Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
 
-## Configuring an active-standby setup for HAProxy using keepalived
+## Table of Contents
+- [Background](#background)
+- [Basic Server Information](#basic-server-information)
+- [Setup IP binding on each server](#setup-ip-binding-on-each-server)
+- [Install HAProxy](#install-haproxy)
+- [HAProxy Configuration](#haproxy-configuration)
+- [Install keepalived](#install-keepalived)
+- [Start keepalived automatically](#start-keepalived-automatically)
+- [Configure keepalived](#configure-keepalived)
+
+## Background
 Use the following instructions to configure an active-standby setup for HAProxy using keepalived. While these instructions are written for Ubuntu 16.04, they can be adapted for other Linux distros if needed.
 
 ## Basic Server Information
@@ -53,48 +63,31 @@ You could use `sudo apt install keepalived`, but the default version from Ubuntu
 7. `sudo make`
 8. `sudo make install`
 
-## Setup the init startup script
+## Start keepalived automatically
 A lot of the insructions for setting up keepalived on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. I didn't have much luck attempting to use them, but this init script did the trick.
 
 1. Open `sudo nano /etc/init.d/keepalived`
 2. Paste the contents from https://gist.github.com/JamieCressey/f5e011cb838b9d867834 into the `keepalived` file.
 
-```
-
-```
-
 sudo chmod +x /etc/init.d/keepalived
 sudo /etc/init.d/keepalived start
 sudo update-rc.d keepalived defaults
-## Might need to run again
+`Might need to run again`
 sudo /etc/init.d/keepalived start
 sudo service keepalived status
 
-## Configure keepalived - MASTER
+## Configure keepalived
 - Create a keepalived config file for the MASTER server
 `sudo vi /etc/keepalived/keepalived.conf`
 
-```
 Some notes on things to change
 ipsec_ah
-```
 
-## Configure keepalived - BACKUP
-- Create a keepalived config file for the BACKUP server
-`sudo vi /etc/keepalived/keepalived.conf`
-
-```
-
-```
-
-Sources:
-https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-haproxy-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04
-
-https://askubuntu.com/questions/623053/installing-keepalived-lastest-version
-
-https://www.digitalocean.com/community/questions/keepalived-for-ubuntu-16
-
-https://gist.github.com/JamieCressey/f5e011cb838b9d867834
+## Sources:
+- https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-haproxy-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04
+- https://askubuntu.com/questions/623053/installing-keepalived-lastest-version
+- https://www.digitalocean.com/community/questions/keepalived-for-ubuntu-16
+- https://gist.github.com/JamieCressey/f5e011cb838b9d867834
 
 
 Internal Resolution
