@@ -1,16 +1,16 @@
 # keepalived
 Collected instructions for setting up keepalived with HAProxy on Ubuntu 16.04
 
-# Configuring an active-standby setup for HAProxy using keepalived
+## Configuring an active-standby setup for HAProxy using keepalived
 Use the following instructions to configure an active-standby setup for HAProxy using keepalived. While these instructions are written for Ubuntu 16.04, they can be adapted for other Linux distros if needed.
 
-# Basic Server Information
+## Basic Server Information
 You'll need a minimum of two servers for keepalived to work. One server should be designated MASTER, the other BACKUP.
 
 haproxy01.domain.com - 10.10.10.11 (MASTER)
 haproxy02.domain.com - 10.10.10.12 (BACKUP)
 
-# Setup IP binding on each server
+## Setup IP binding on each server
 keepalived needs a shared virtual IP (VIP) in order for communication between the two instances to be possible. First, you'll need to enable the ability to bind IPs not defined in the interfaces file.
 
 - Open the sysctl.conf file
@@ -21,7 +21,7 @@ keepalived needs a shared virtual IP (VIP) in order for communication between th
 `sudo sysctl -p`
 - Perform these steps on both servers
 
-# Install HAProxy
+## Install HAProxy
 Use the following site to determine the installation steps specific to your Linux distro: https://haproxy.debian.net/
 
 - Generally, the latest version is prefereable to the stable version that ships with Ubuntu.
@@ -36,10 +36,10 @@ sudo apt update
 sudo apt install haproxy
 ```
 
-# HAProxy Configuration
+## HAProxy Configuration
 Setup your HAProxy configuration on MASTER, and copy that configuration over to BACKUP. The HAProxy configuration file needs to be the same on both servers.
 
-# Install keepalived
+## Install keepalived
 You could use `sudo apt install keepalived`, but the default version from Ubuntu's repos is outdated and posesses a few bugs. Instead, you'll need to build and install keepalived from the source files.
 
 - Perform the following steps on both servers.
@@ -53,7 +53,7 @@ You could use `sudo apt install keepalived`, but the default version from Ubuntu
 7. `sudo make`
 8. `sudo make install`
 
-# Setup the init startup script
+## Setup the init startup script
 A lot of the insructions for setting up keepalived on Ubuntu deal with 14.04 or earler, which utilizes Upstart scripts. I didn't have much luck attempting to use them, but this init script did the trick.
 
 1. Open `sudo nano /etc/init.d/keepalived`
@@ -66,11 +66,11 @@ A lot of the insructions for setting up keepalived on Ubuntu deal with 14.04 or 
 sudo chmod +x /etc/init.d/keepalived
 sudo /etc/init.d/keepalived start
 sudo update-rc.d keepalived defaults
-# Might need to run again
+## Might need to run again
 sudo /etc/init.d/keepalived start
 sudo service keepalived status
 
-# Configure keepalived - MASTER
+## Configure keepalived - MASTER
 - Create a keepalived config file for the MASTER server
 `sudo vi /etc/keepalived/keepalived.conf`
 
@@ -79,7 +79,7 @@ Some notes on things to change
 ipsec_ah
 ```
 
-# Configure keepalived - BACKUP
+## Configure keepalived - BACKUP
 - Create a keepalived config file for the BACKUP server
 `sudo vi /etc/keepalived/keepalived.conf`
 
