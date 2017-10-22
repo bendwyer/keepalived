@@ -76,7 +76,7 @@ sudo make install
 ```
 
 ## Configure keepalived
-The config files for **keepalived** **MASTER** and **BACKUP** servers are included below with comments, and also as a downloadable files in this git repo. Items in `< >` need to be edited.
+These are some of the options available in the config file, with brief explanations.
 
 - `notification_email` - address the alerts will be sent to
 - `notification_email_from` - address the alerts will be sent from
@@ -90,80 +90,36 @@ The config files for **keepalived** **MASTER** and **BACKUP** servers are includ
 - `virtual_ip_address` - shared **VIP** for both servers
 - `track_script` - which script **keepalived** monitors to decide if failover is necessary
 
-Create a **keepalived** config file for the **MASTER** server.<br>
+The config files for **keepalived** **MASTER** and **BACKUP** servers are available as downloadable files in this git repo.
+
+1. Download the **keepalived** config file to the **MASTER** server and rename it.
+
+```
+cd /etc/keepalived
+wget https://
+sudo mv keepalived.conf.master keepalived.conf
+```
+
+2. Edit the **MASTER** `.conf` file. Items in `< >` need to be edited, and the `< >` should be removed.
+
+```
+sudo vi /etc/keepalived/keepalived.conf
+```
+
+
+3. Download the **keepalived** config file to the **BACKUP** server and rename it.
 `sudo vi /etc/keepalived/keepalived.conf`
 
 ```
-global_defs {
-  notification_email {
-    <email@domain.com>
-  }
-  notification_email_from <haproxy01@domain.com>
-  smtp_server <smtp.domain.com>
-  smtp_connect_timeout 30
-  router_id <haproxy01>
-  enable_script_security
-}
-vrrp_script chk_haproxy {
-  script "/usr/bin/killall -0 haproxy"
-  interval 2
-  weight 2
-}
-vrrp_instance haproxy {
-  state MASTER
-  interface <ens160>
-  priority 101
-  virtual_router_id 51
-  smtp_alert
-  authentication {
-    auth_type AH
-    auth_pass <12345678>
-  }
-  virtual_ipaddress {
-    <10.10.10.99>
-  }
-  track_script {
-    chk_haproxy
-  }
-}
+cd /etc/keepalived
+wget https://
+sudo mv keepalived.conf.backup keepalived.conf
 ```
 
-Create a **keepalived** config file for the **BACKUP** server.<br>
-`sudo vi /etc/keepalived/keepalived.conf`
+4. Edit the **BACKUP** `.conf` file. Items in `< >` need to be edited, and the `< >` should be removed.
 
 ```
-global_defs {
-  notification_email {
-    <email@domain.com>
-  }
-  notification_email_from <haproxy02@domain.com>
-  smtp_server <smtp.domain.com>
-  smtp_connect_timeout 30
-  router_id <haproxy02>
-  enable_script_security
-}
-vrrp_script chk_haproxy {
-  script "/usr/bin/killall -0 haproxy"
-  interval 2
-  weight 2
-}
-vrrp_instance haproxy {
-  state BACKUP
-  interface <ens160>
-  priority 100
-  virtual_router_id 51
-  smtp_alert
-  authentication {
-    auth_type AH
-    auth_pass <12345678>
-  }
-  virtual_ipaddress {
-    <10.10.10.99>
-  }
-  track_script {
-    chk_haproxy
-  }
-}
+sudo vi /etc/keepalived/keepalived.conf
 ```
 
 ## Start keepalived automatically
