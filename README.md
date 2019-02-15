@@ -150,6 +150,6 @@ sudo update-rc.d keepalived defaults
 - https://gist.github.com/JamieCressey/f5e011cb838b9d867834
 
 ## Extras
-G Suite can function as an SMTP relay, which is useful for **keepalived** (and other services that can send email alerts). Use `stmp-relay.gmail.com` as the server address.
+G Suite can function as an SMTP relay, which is useful for **keepalived** (and other services that can send email alerts). Use `smtp-relay.gmail.com` as the server address.
 
 Source: https://support.google.com/a/answer/2956491
